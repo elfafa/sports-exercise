@@ -1,8 +1,8 @@
-## Requirements
+# Requirements
 
 - PHP 7.1 or more
 
-## Installation
+# Installation
 
 ## Homestead
 
@@ -52,7 +52,7 @@ DB_DATABASE=sports
 DB_USERNAME=homestead
 DB_PASSWORD=secret
 
-## API documentation
+# API documentation
 
 An API documentation is available and accessible by `http://<project vhost>/docs/index.html`.
 
