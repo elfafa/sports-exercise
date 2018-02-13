@@ -4,10 +4,8 @@ namespace App\Cruds;
 
 use App\AbstractModel;
 use Exception;
-use Generate;
 use Ramsey\Uuid\Uuid;
-use Stikit\Repos\AbstractRepo;
-use Stikit\Validators\AbstractValidator;
+use App\Repositories\AbstractRepo;
 
 /**
  * Class AbstractCrud
@@ -27,13 +25,6 @@ abstract class AbstractCrud
      * @var AbstractRepo
      */
     protected $repository;
-
-    /**
-     * Transformer holder
-     *
-     * @var mixed
-     */
-    protected $transformer;
 
     /**
      * Set data

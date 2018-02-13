@@ -3,7 +3,7 @@
 namespace App\Cruds;
 
 use App\Match;
-use App\Repositories\StatisticRepo;
+use App\Repositories\StatisticRepository;
 use Nathanmac\Utilities\Parser\Parser;
 use GuzzleHttp\Client;
 
@@ -18,12 +18,12 @@ class StatisticCrud extends AbstractCrud
     private $specificCrud;
 
     /**
-     * @param StatisticRepo $repository
+     * @param StatisticRepository $repository
      * @param Parser $parser
      * @param Client $client
      */
     public function __construct(
-        StatisticRepo $repository,
+        StatisticRepository $repository,
         Parser $parser,
         Client $client
     ) {
@@ -36,10 +36,10 @@ class StatisticCrud extends AbstractCrud
     {
         $this->match    = $match;
         $this->instance = $match->statistic;
-        if ('football' === $match->sport) {
-            $this->specificCrud = new StatisticSoccerCrud;
+        if ('football' === strtolower($match->sport)) {
+            $this->specificCrud = new StatisticFootballCrud;
         } else {
-            // exception
+            throw new \Exception('Invalid sport');
         }
 
         return $this;
@@ -57,6 +57,7 @@ class StatisticCrud extends AbstractCrud
             $datas
         ));
         parent::create();
+        $this->updateMatch($datas);
 
         return $this->instance;
     }
@@ -73,8 +74,16 @@ class StatisticCrud extends AbstractCrud
             $datas
         ));
         parent::update();
+        $this->updateMatch($datas);
 
         return $this->instance;
+    }
+
+    protected function updateMatch(array $datas)
+    {
+        $this->match->team_home_id = $datas['team_home_id'];
+        $this->match->team_away_id = $datas['team_away_id'];
+        $this->match->save();
     }
 
     protected function getFileContent()

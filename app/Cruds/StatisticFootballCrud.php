@@ -5,9 +5,9 @@ namespace App\Cruds;
 use App\Statistic;
 
 /**
- * Class StatisticSoccerCrud
+ * Class StatisticFootballCrud
  */
-class StatisticSoccerCrud
+class StatisticFootballCrud
 {
     protected $analyzedXml = [];
 
@@ -40,9 +40,17 @@ class StatisticSoccerCrud
         $homeTeam = $awayTeam = null;
         foreach ($matchDatas['TeamData'] as $teamDatas) {
             if ('Home' === $teamDatas['@Side']) {
-                $homeTeam = $this->getTeamStats($teamDatas, $teamPlayers[$teamDatas['@TeamRef']]);
+                $homeTeam = $this->getTeamStats(
+                    $teamDatas,
+                    $teamPlayers[$teamDatas['@TeamRef']]
+                );
+                $this->analyzedXml['team_home_id'] = $teamDatas['@TeamRef'];
             } else {
-                $awayTeam = $this->getTeamStats($teamDatas, $teamPlayers[$teamDatas['@TeamRef']]);
+                $awayTeam = $this->getTeamStats(
+                    $teamDatas,
+                    $teamPlayers[$teamDatas['@TeamRef']]
+                );
+                $this->analyzedXml['team_away_id'] = $teamDatas['@TeamRef'];
             }
         }
 
@@ -59,17 +67,17 @@ class StatisticSoccerCrud
             $homeTeam['top_scorers']['goals']
             && $homeTeam['top_scorers']['goals'] < $awayTeam['top_scorers']['goals']
         ) {
-            $this->analyzedXml['top_scorer'] = $awayTeam['top_scorers']['names'];
+            $this->analyzedXml['top_scorer_names'] = $awayTeam['top_scorers']['names'];
         } elseif (
             $awayTeam['top_scorers']['goals']
             && $awayTeam['top_scorers']['goals'] < $homeTeam['top_scorers']['goals']
         ) {
-            $this->analyzedXml['top_scorer'] = $homeTeam['top_scorers']['names'];
+            $this->analyzedXml['top_scorer_names'] = $homeTeam['top_scorers']['names'];
         } elseif (
             $awayTeam['top_scorers']['goals']
             && $awayTeam['top_scorers']['goals'] == $homeTeam['top_scorers']['goals']
         ) {
-            $this->analyzedXml['top_scorer'] = $homeTeam['top_scorers']['names'].';'.$awayTeam['top_scorers']['names'];
+            $this->analyzedXml['top_scorer_names'] = $homeTeam['top_scorers']['names'].';'.$awayTeam['top_scorers']['names'];
         }
 
         foreach ([ 'home' => $homeTeam, 'away' => $awayTeam ] as $teamKey => $team) {

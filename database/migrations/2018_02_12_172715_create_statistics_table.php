@@ -21,7 +21,7 @@ class CreateStatisticsTable extends Migration
             $table->string('status');
             $table->integer('elapsed_time')->default(0);
             $table->timestamp('start_at')->nullable();
-            $table->string('top_scorer_name')->nullable();
+            $table->string('top_scorer_names')->nullable();
             $table->string('winner_team')->nullable();
             $table->integer('total_goals')->default(0);
             $table->integer('red_cards')->default(0);

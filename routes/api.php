@@ -20,6 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => [ 'web', 'api' ],
 ], function () {
-    Route::post('match-create/football', 'ApiController@save');
-    Route::get('match-data/football/{matchId}', 'ApiController@get');
+    Route::post('match-create/football', 'ImportController@save');
+    Route::get('match-data/football/{externalId}', 'ApiController@get');
+    Route::get('match-top/football', 'ApiController@getTop');
+    Route::get('match-top/football/{minimumGoals}', 'ApiController@getTop');
+    Route::get('match-team/football/{team}', 'ApiController@getForTeam');
+    Route::get('match-team/football/{team}/{quantity}', 'ApiController@getForTeam');
 });

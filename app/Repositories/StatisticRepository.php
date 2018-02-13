@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 /**
- * Class StatisticRepo
+ * Class StatisticRepository
  */
-class StatisticRepo extends AbstractRepo
+class StatisticRepository extends AbstractRepository
 {
     /**
      * {@inheritdoc}

@@ -10,8 +10,10 @@ class Match extends Model
         'sport',
         'competition',
         'external_id',
-        'team_home',
-        'team_away',
+        'team_home_id',
+        'team_home_name',
+        'team_away_id',
+        'team_away_name',
         'season',
         'feed_file',
         //

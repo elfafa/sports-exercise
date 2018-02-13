@@ -11,7 +11,7 @@ class Statistic extends Model
         'status',
         'elapsed_time',
         'start_at',
-        'top_scorer_name',
+        'top_scorer_names',
         'winner_team',
         'total_goals',
         'red_cards',

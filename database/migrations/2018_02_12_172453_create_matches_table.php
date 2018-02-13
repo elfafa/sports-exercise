@@ -19,8 +19,10 @@ class CreateMatchesTable extends Migration
             $table->string('sport');
             $table->string('competition');
             $table->string('external_id');
-            $table->string('team_home');
-            $table->string('team_away');
+            $table->string('team_home_id')->nullable();
+            $table->string('team_home_name');
+            $table->string('team_away_id')->nullable();
+            $table->string('team_away_name');
             $table->string('season');
             $table->string('feed_file');
         });

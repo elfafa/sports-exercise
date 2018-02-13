@@ -7,10 +7,9 @@ use Illuminate\Database\Query;
 use Stikit\Traits\UidTrait;
 
 /**
- * Class AbstractRepo
- * @package Stikit\Repos
+ * Class AbstractRepository
  */
-abstract class AbstractRepo
+abstract class AbstractRepository
 {
     /**
      * AbstractModel instance holder

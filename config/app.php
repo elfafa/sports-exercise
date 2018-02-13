@@ -152,6 +152,7 @@ return [
          */
         Themsaid\Transformers\TransformersServiceProvider::class,
         Nathanmac\Utilities\Parser\ParserServiceProvider::class,
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...

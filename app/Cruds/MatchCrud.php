@@ -2,8 +2,7 @@
 
 namespace App\Cruds;
 
-use App\Repositories\MatchRepo;
-use App\Transformers\MatchTransformer;
+use App\Repositories\MatchRepository;
 
 /**
  * Class MatchCrud
@@ -13,17 +12,14 @@ class MatchCrud extends AbstractCrud
     private $statisticCrud;
 
     /**
-     * @param MatchRepo $repository
-     * @param MatchTransformer $transformer
+     * @param MatchRepository $repository
      * @param StatisticCrud $statisticCrud
      */
     public function __construct(
-        MatchRepo $repository,
-        MatchTransformer $transformer,
+        MatchRepository $repository,
         StatisticCrud $statisticCrud
     ) {
         $this->repository    = $repository;
-        $this->transformer   = $transformer;
         $this->statisticCrud = $statisticCrud;
     }
 
