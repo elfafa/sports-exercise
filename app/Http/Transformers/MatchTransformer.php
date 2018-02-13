@@ -6,8 +6,17 @@ use App\Match;
 use App\Statistic;
 use Illuminate\Support\Collection;
 
+/**
+ * Class MatchTransformer
+ */
 class MatchTransformer
 {
+    /**
+     * Transform a collection of Match entities to array
+     *
+     * @param Collection $matches
+     * @return array
+     */
     public function transformCollection(Collection $matches)
     {
         $transformed = [];
@@ -18,10 +27,17 @@ class MatchTransformer
         return $transformed;
     }
 
+    /**
+     * Transform a Match entity to array
+     *
+     * @param Match $match
+     * @return array
+     */
     public function transformModel(Match $match)
     {
-        $statistic  = $match->statistic;
-        $output = [
+        $statistic = $match->statistic;
+
+        return [
             'competition' => (string) $match->competition,
             'match_id'    => (string) $match->external_id,
             'season'      => (string) $match->season,
@@ -53,8 +69,6 @@ class MatchTransformer
                 ],
             ],
         ];
-
-        return $output;
     }
 
 }

@@ -3,9 +3,8 @@
 namespace App\Cruds;
 
 use App\AbstractModel;
+use App\Repositories\AbstractRepository;
 use Exception;
-use Ramsey\Uuid\Uuid;
-use App\Repositories\AbstractRepo;
 
 /**
  * Class AbstractCrud
@@ -13,7 +12,14 @@ use App\Repositories\AbstractRepo;
 abstract class AbstractCrud
 {
     /**
-     * Created instance holder
+     * Datas from XML
+     *
+     * @var array
+     */
+    protected $datas;
+
+    /**
+     * Instance holder
      *
      * @var AbstractModel
      */
@@ -22,31 +28,21 @@ abstract class AbstractCrud
     /**
      * Repository instance holder
      *
-     * @var AbstractRepo
+     * @var AbstractRepository
      */
     protected $repository;
 
     /**
      * Set data
      *
-     * @param $data
+     * @param array $data
      * @return $this
      */
-    public function setData($data)
+    public function setData(array $data)
     {
         $this->data = $data;
 
         return $this;
-    }
-
-    /**
-     * Get instance
-     *
-     * @return AbstractModel
-     */
-    public function getInstance()
-    {
-        return $this->instance;
     }
 
     /**
@@ -62,8 +58,11 @@ abstract class AbstractCrud
     }
 
     /**
-     * @param $field
-     * @param $value
+     * Find and set instance
+     *
+     * @param string $field
+     * @param mixed $value
+     *
      * @return AbstractModel
      */
     public function findWhere($field, $value)

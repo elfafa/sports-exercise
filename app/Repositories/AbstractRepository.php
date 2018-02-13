@@ -3,8 +3,7 @@
 namespace App\Repositories;
 
 use App\AbstractModel;
-use Illuminate\Database\Query;
-use Stikit\Traits\UidTrait;
+use Illuminate\Support\Collection;
 
 /**
  * Class AbstractRepository
@@ -28,7 +27,7 @@ abstract class AbstractRepository
     /**
      * Get all instances
      *
-     * @return AbstractModel[]
+     * @return Collection
      */
     public function all()
     {
@@ -57,69 +56,6 @@ abstract class AbstractRepository
     public function findWhere($field, $value, $condition = '=')
     {
         return $this->model->where($field, $condition, $value)->first();
-    }
-
-    /**
-     * Find all instances where the field matches the value, based on a condition
-     *
-     * @param  string $field
-     * @param  string $value
-     * @param  string $condition
-     * @return AbstractModel[]
-     */
-    public function findAllWhere($field, $value, $condition = '=')
-    {
-        return $this->model->where($field, $condition, $value)->get();
-    }
-
-    /**
-     * Find all instances where the field matches the value, based on a condition
-     *
-     * @param  string $field
-     * @param  string $value
-     * @param  string $condition
-     * @return AbstractModel[]
-     */
-    public function findAllDistinctWhere($field, $value, $condition = '=')
-    {
-        return $this->model->where($field, $condition, $value)->distinct()->get();
-    }
-
-    /**
-     * Find all instances where the field matches the values (array), based on a condition
-     *
-     * @param  string $field
-     * @param  mixed $values array
-     * @return AbstractModel[]
-     */
-    public function findAllWhereIn($field, $values)
-    {
-        return $this->model->whereIn($field, $values)->get();
-    }
-
-    /**
-     * Add 'where X = xxx' condition to builder
-     *
-     * @param  array|string $column
-     * @param  string|null $operator
-     * @param  string|null $value
-     * @return Builder
-     */
-    public function where($column, $operator = null, $value = null)
-    {
-        return $this->model->where($column, $operator, $value);
-    }
-
-    /**
-     * Add 'where X in (xxx)' condition to builder
-     *
-     * @param  string $field
-     * @param  array $value
-     * @return Builder
-     */
-    public function whereIn($field, $values)
-    {
-        return $this->model->whereIn($field, $values);
     }
 
     /**

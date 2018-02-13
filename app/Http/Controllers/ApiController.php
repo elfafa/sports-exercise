@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Cruds\MatchCrud;
 use App\Http\Transformers\MatchTransformer;
 use App\Match;
-use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\MatchRepository;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ImportController
@@ -21,6 +22,7 @@ class ApiController extends Controller
      * @param MatchCrud $matchCrud
      * @param MatchTransformer $matchTransformer
      * @param int $externalId
+     *
      * @return JsonResponse
      */
     public function get(
@@ -45,15 +47,18 @@ class ApiController extends Controller
      *
      * @param MatchRepository $matchRepository
      * @param MatchTransformer $matchTransformer
-     * @param int $minimumGoals
+     * @param int $minimumGoals minimum of goals
+     * @param int $quantity quantity of matches
+     *
      * @return JsonResponse
      */
     public function getTop(
         MatchRepository $matchRepository,
         MatchTransformer $matchTransformer,
-        $minimumGoals = MatchRepository::MINIMUM_GOALS
+        $minimumGoals = MatchRepository::MINIMUM_GOALS,
+        $quantity = MatchRepository::DEFAULT_QUANTITY
     ) {
-        $matches = $matchRepository->getTop($minimumGoals);
+        $matches = $matchRepository->getTop($minimumGoals, $quantity);
 
         return $this->respondWithJson(
             $matchTransformer->transformCollection($matches)
@@ -65,8 +70,9 @@ class ApiController extends Controller
      *
      * @param MatchRepository $matchRepository
      * @param MatchTransformer $matchTransformer
-     * @param string $team
-     * @param int $quantity
+     * @param string $team team identifier or name
+     * @param int $quantity quantity of matches
+     *
      * @return JsonResponse
      */
     public function getForTeam(

@@ -9,7 +9,10 @@ use App\Repositories\MatchRepository;
  */
 class MatchCrud extends AbstractCrud
 {
-    private $statisticCrud;
+    /**
+     * @var StatisticCrud
+     */
+    protected $statisticCrud;
 
     /**
      * @param MatchRepository $repository
@@ -24,7 +27,7 @@ class MatchCrud extends AbstractCrud
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheridocs}
      */
     public function create()
     {
@@ -35,7 +38,7 @@ class MatchCrud extends AbstractCrud
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheridocs}
      */
     public function update()
     {

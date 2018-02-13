@@ -12,9 +12,24 @@ use GuzzleHttp\Client;
  */
 class StatisticCrud extends AbstractCrud
 {
+    /**
+     * @var Match
+     */
     private $match;
+
+    /**
+     * @var Parser
+     */
     private $parser;
+
+    /**
+     * @var Client
+     */
     private $client;
+
+    /**
+     * @var StatisticSpecificInterface
+     */
     private $specificCrud;
 
     /**
@@ -32,6 +47,12 @@ class StatisticCrud extends AbstractCrud
         $this->client     = $client;
     }
 
+    /**
+     * Set match instance
+     *
+     * @param Match $match
+     * @return $this
+     */
     public function setMatch(Match $match)
     {
         $this->match    = $match;
@@ -46,7 +67,7 @@ class StatisticCrud extends AbstractCrud
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheridocs}
      */
     public function create()
     {
@@ -63,7 +84,7 @@ class StatisticCrud extends AbstractCrud
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheridocs}
      */
     public function update()
     {
@@ -79,6 +100,9 @@ class StatisticCrud extends AbstractCrud
         return $this->instance;
     }
 
+    /**
+     * Update related match instance
+     */
     protected function updateMatch(array $datas)
     {
         $this->match->team_home_id = $datas['team_home_id'];
@@ -86,6 +110,11 @@ class StatisticCrud extends AbstractCrud
         $this->match->save();
     }
 
+    /**
+     * Get match feed file content
+     *
+     * @return string
+     */
     protected function getFileContent()
     {
         $response = $this->client->get($this->match->feed_file);

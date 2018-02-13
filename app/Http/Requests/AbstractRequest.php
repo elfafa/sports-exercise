@@ -50,7 +50,6 @@ abstract class AbstractRequest extends FormRequest
 
     /**
      * {@inheridocs}
-     * @throws ApiValidationException
      */
     protected function failedValidation(Validator $validator)
     {

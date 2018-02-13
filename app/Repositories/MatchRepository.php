@@ -2,25 +2,37 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
+
 /**
  * Class MatchRepository
  */
 class MatchRepository extends AbstractRepository
 {
     /**
-     * {@inheritdoc}
+     * {@inheritdocs}
      */
     public $model = '\App\Match';
 
+    /**
+     * @var int
+     */
     const MINIMUM_GOALS = 4;
+
+    /**
+     * @var int
+     */
     const DEFAULT_QUANTITY = 5;
 
     /**
      * Get top matches with $minimumGoals minimum goals
      *
-     * @return AbstractModel[]
+     * @param int $minimumGoals
+     * @param int $quantity
+     *
+     * @return Collection
      */
-    public function getTop($minimumGoals = self::MINIMUM_GOALS)
+    public function getTop($minimumGoals = self::MINIMUM_GOALS, $quantity = self::DEFAULT_QUANTITY)
     {
         return $this->model
             ->select([
@@ -34,6 +46,7 @@ class MatchRepository extends AbstractRepository
                 ;
             })
             ->orderBy('statistics.total_goals', 'desc')
+            ->limit($quantity)
             ->get()
         ;
     }
@@ -41,7 +54,10 @@ class MatchRepository extends AbstractRepository
     /**
      * Get all matches for a team
      *
-     * @return AbstractModel[]
+     * @param string $team
+     * @param int $quantity
+     *
+     * @return Collection
      */
     public function getForTeam($team, $quantity = self::DEFAULT_QUANTITY)
     {
